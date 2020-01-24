@@ -1,4 +1,4 @@
-![Logo Cligest](/Images/CliGestLogo1600x550.png)
+![Logo Cligest](https://github.com/dwbewiahn/CliGest/blob/master/%23Images/CliGestLogo1600x550.png)
 
  *Douglas Bewiahn*
 
