@@ -1,4 +1,4 @@
-![Logo Cligest](/Images/CliGestLogo1600x550.png)
+![Logo Cligest](/#Images/CliGestLogo1600x550.png)
 
  *Douglas Bewiahn*
 
