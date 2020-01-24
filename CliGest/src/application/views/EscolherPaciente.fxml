@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label text="Selecione o Paciente">
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </Label>
+      <ComboBox fx:id="pacientes" prefWidth="150.0" />
+      <Label fx:id="nomeDoMedico" text="NOME_DO_MEDICO" />
+      <Label text="Selecione a Especialidade" />
+      <ComboBox fx:id="especialidades" prefWidth="150.0" />
+      <Button fx:id="agendar" mnemonicParsing="false" onAction="#agendar" prefHeight="48.0" prefWidth="101.0" text="Agendar">
+         <VBox.margin>
+            <Insets bottom="-10.0" top="15.0" />
+         </VBox.margin>
+      </Button>
+   </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+</VBox>

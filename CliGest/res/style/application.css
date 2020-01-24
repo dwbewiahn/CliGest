@@ -1,0 +1,14 @@
+.button {
+	-fx-background-color: #33bdef;
+	-fx-text-fill:rgb(255,255,255);
+	-fx-border: 5px;
+	-fx-border-color: #33bdef;
+}
+
+.button:hover {
+	-fx-background-color: #019ad2;
+}
+
+.button:disabled {
+	-fx-background-color: gray;
+}
