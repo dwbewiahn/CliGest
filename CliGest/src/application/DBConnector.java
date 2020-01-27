@@ -14,10 +14,7 @@ public class DBConnector {
 	private DBConnector() {
 	}
 
-	/**
-	 * Cria(quando preciso) e retorna o objeto de ligacao a base de dados
-	 * @return objeto Connection.
-	 */
+
 	public static Connection getConnection() {
 		try {
 			if (con == null)

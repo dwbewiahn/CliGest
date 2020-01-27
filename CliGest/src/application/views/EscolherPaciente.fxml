@@ -4,23 +4,44 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="296.0" prefWidth="437.0" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label text="Selecione o Paciente">
+      <HBox alignment="CENTER" prefHeight="40.0" prefWidth="305.0">
+         <children>
+            <Label text="Médico Selecionado : ">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="nomeDoMedico" text="NOME_DO_MEDICO">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <Label text="Selecione o Paciente :">
          <VBox.margin>
             <Insets />
          </VBox.margin>
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
       </Label>
       <ComboBox fx:id="pacientes" prefWidth="150.0" />
-      <Label fx:id="nomeDoMedico" text="NOME_DO_MEDICO" />
-      <Label text="Selecione a Especialidade" />
+      <Label text="Selecione a Especialidade :" />
       <ComboBox fx:id="especialidades" prefWidth="150.0" />
-      <Button fx:id="agendar" mnemonicParsing="false" onAction="#agendar" prefHeight="48.0" prefWidth="101.0" text="Agendar">
+      <Button fx:id="agendar" mnemonicParsing="false" onAction="#agendar" prefHeight="48.0" prefWidth="101.0" stylesheets="@../../../res/style/application.css" text="Agendar">
          <VBox.margin>
             <Insets bottom="-10.0" top="15.0" />
          </VBox.margin>
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
       </Button>
    </children>
    <padding>
