@@ -27,3 +27,6 @@ Na tela inicial o utilizador visualiza a agenda do dia, com os devidos agendamen
 * *[1] Estela - Assistente para o agendamento de consultas. (2019). Homepage. Consultado em 01 dezembro 2019. Disponível em  https://www.estela.io/.*
 
 * *[2] Consultorio.me - O Aplicativo ideal para profissionais da saude. (2019). Homepage. Consultado em 01 dezembro 2019. Disponível em https://consultorio.me/.*
+
+
+Apresentação link : https://docs.google.com/presentation/d/1d3-35Q8k4kBO_TDgjrXxAdw051hrOFLDSQ67Oqg9Mac/edit?usp=sharing
