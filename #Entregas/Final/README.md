@@ -31,4 +31,9 @@ Na tela inicial o utilizador seleciona a data e o médico que deseja consultar/a
 
 
 
-Apresentação link : https://docs.google.com/presentation/d/1d3-35Q8k4kBO_TDgjrXxAdw051hrOFLDSQ67Oqg9Mac/edit?usp=sharing
+##
+
+Video: https://www.youtube.com/watch?v=F6ycptgk3ZI
+
+Apresentação: https://docs.google.com/presentation/d/1d3-35Q8k4kBO_TDgjrXxAdw051hrOFLDSQ67Oqg9Mac
+
