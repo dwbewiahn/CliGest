@@ -29,6 +29,9 @@ Na tela inicial o utilizador seleciona a data e o médico que deseja consultar/a
 * *[2] Consultorio.me - O Aplicativo ideal para profissionais da saude. (2019). Homepage. Consultado em 01 dezembro 2019. Disponível em https://consultorio.me/.*
 
 
+##
 
+Video: https://www.youtube.com/watch?v=F6ycptgk3ZI
 
-Apresentação link : https://docs.google.com/presentation/d/1d3-35Q8k4kBO_TDgjrXxAdw051hrOFLDSQ67Oqg9Mac/edit?usp=sharing
+Apresentação: https://docs.google.com/presentation/d/1d3-35Q8k4kBO_TDgjrXxAdw051hrOFLDSQ67Oqg9Mac
+
