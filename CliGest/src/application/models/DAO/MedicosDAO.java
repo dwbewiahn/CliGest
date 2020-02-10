@@ -12,8 +12,17 @@ import application.models.Medico;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+/**
+ * Classe que lida com a busca e atualizacao de dados relativos aos medicos da base de dados
+ * @author dwbew
+ *
+ */
 public class MedicosDAO {
 
+	/**
+	 * Busca todos os medicos registrados na base de dados
+	 * @return Lista com todos os medicos da base de dados
+	 */
 	public static ObservableList<Medico> getMedicos() {
 		ObservableList<Medico> medicos = FXCollections.observableArrayList();
 		Connection conn = DBConnector.getConnection();
@@ -46,6 +55,11 @@ public class MedicosDAO {
 		return medicos;
 	}
 
+	/**
+	 * Busca todos os horarios marcados do medico com id especificado nos parametros
+	 * @param id id do medico que deseja receber os horarios marcados
+	 * @return Lista com todos os horarios marcados do medico
+	 */
 	public static ObservableList<String> getHorariosMarcados(int id) {
 		ObservableList<String> horariosMarcados = FXCollections.observableArrayList();
 		Connection conn = DBConnector.getConnection();
@@ -66,6 +80,11 @@ public class MedicosDAO {
 	}
 
 
+	/**
+	 * Recebe o medico com o id especificado nos parametros
+	 * @param idMedico id do medico que deseja buscar na base de dados
+	 * @return Medico com o id especificado nos parametros
+	 */
 	public static Medico getMedico(int idMedico) {
 		Medico medico = null;
 		Connection conn = DBConnector.getConnection();
@@ -101,6 +120,11 @@ public class MedicosDAO {
 		return medico;
 	}
 	
+	/**
+	 * Busca o medico especificado nos parametros na base de dados
+	 * @param medicoA medico que deseja buscar na base de dados
+	 * @return medico com as informações passadas no parametro
+	 */
 	public static Medico getMedico(Medico medicoA) {
 		Medico medico = null;
 		System.out.println(medicoA.getTelefone());
@@ -139,6 +163,11 @@ public class MedicosDAO {
 		return medico;
 	}
 	
+	/**
+	 * Busca o medico registrado na base de dados com o email passado no parametro
+ 	 * @param emailMedico email do medico que deseja buscar
+	 * @return Medico com o email especificado
+	 */
 	public static Medico getMedico(String emailMedico) {
 		Medico medico = null;
 		System.out.println(emailMedico);
@@ -167,6 +196,10 @@ public class MedicosDAO {
 		return medico;
 	}
 
+	/**
+	 * Cria um novo medico com as informacoes do parametro
+	 * @param medico medico que deseja registrar na base de dados
+	 */
 	public static void criarNovoMedico(Medico medico) {
 		Connection conn = DBConnector.getConnection();
 		String sql = "INSERT INTO medico(nome_medico, sexo, telefone, email, morada, cod_postal)" + " VALUES(?,?,?,?,?,?)";
@@ -184,6 +217,10 @@ public class MedicosDAO {
 		}
 	}
 
+	/**
+	 * Atualiza informacoes do medico especificado nos parametros
+	 * @param medico informacoes do medico que deseja atualizar
+	 */
 	public static void atualizarMedico(Medico medico) {
 		Connection conn = DBConnector.getConnection();
 		String sql = "UPDATE medico SET nome_medico =?, sexo=?, telefone=?, email=?, morada=?, cod_postal=? WHERE id_medico= ?";

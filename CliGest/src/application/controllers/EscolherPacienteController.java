@@ -11,6 +11,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 
+/**
+ * Controlador para criar um agendamento.
+ * @author dwbew
+ *
+ */
 public class EscolherPacienteController {
 
 	@FXML
@@ -33,6 +38,11 @@ public class EscolherPacienteController {
 		this.dataHora = dataHora;
 	}
 	
+	/**
+	 * Define os items da combobox de pacientes com os dados da base dados.
+	 * Define os items da combobox de especialidade com os dados da base de dados.
+	 * Define o nome do medico para aparecer na tela como o medico escolhido.
+	 */
 	@FXML
 	private void initialize() {
 		pacientes.setItems(PacientesDAO.getPacientes());
@@ -40,14 +50,20 @@ public class EscolherPacienteController {
 		nomeDoMedico.setText(medico.toString());
 	}
 	
+	/**
+	 * Cria um novo agendamento com os items selecionados nas combobox e fecha a tela.
+	 */
 	@FXML
 	private void agendar() {
 		AgendamentosDAO.criarAgendamento(new Agendamento(0, dataHora, pacientes.getValue(), medico, especialidades.getValue(), false));
 		agendar.getScene().getWindow().hide();
 	}
 	
+	/**
+	 * Fecha a tela atual sem salvar nenhuma informação
+	 */
 	@FXML
 	private void cancelar() {
-		
+		agendar.getScene().getWindow().hide();
 	}
 }

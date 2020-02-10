@@ -1,5 +1,11 @@
 package application.models;
 
+/**
+ * Classe abstrata do modelo de uma pessoa  contém os dados do padrao de uma pessoa como : nome, telefone, sexo, morada, codigo postal,
+ * email e data de nascimento.
+ * @author dwbew
+ *
+ */
 public abstract class Pessoa {
 
 	private int id, telefone;

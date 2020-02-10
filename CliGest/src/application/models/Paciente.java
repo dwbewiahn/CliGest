@@ -3,6 +3,13 @@ package application.models;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+/**
+ * Classe do modelo dos pacientes que herda parametros da classe pessoa, contém os dados do paciente como : nome, telefone, sexo, morada, codigo postal,
+ * email, data de nascimento, seguradoras contratadas e o numero do contribuinte.
+ * @author dwbew
+ *
+ */
+
 public class Paciente extends Pessoa{
 
 	private ObservableList<Seguradora> seguradoras = FXCollections.observableArrayList();

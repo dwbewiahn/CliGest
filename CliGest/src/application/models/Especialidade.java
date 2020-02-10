@@ -1,5 +1,9 @@
 package application.models;
-
+/**
+ * Classe do modelo das especialidades, contém id da especialidade e o nome.
+ * @author dwbew
+ *
+ */
 public class Especialidade {
 	private int id;
 	private String name;

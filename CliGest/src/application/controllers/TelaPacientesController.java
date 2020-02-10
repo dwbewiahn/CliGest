@@ -14,6 +14,11 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
+/**
+ * Tela com a lista de todos pacientes da base de dados e suas informações. Existe a possibilidade de criar novos pacientes.
+ * @author dwbew
+ *
+ */
 public class TelaPacientesController {
 
 	@FXML
@@ -33,10 +38,23 @@ public class TelaPacientesController {
 
 	@FXML
 	private ListView<Seguradora> listaSeguradoras;
+	
+	/**
+	 * ID do item de adição de novo paciente
+	 */
+	private final int ID_ADD_PACIENTE = 99999;
 
 	public TelaPacientesController() {
 	}
 
+	/**
+	 * Define items da lista como todos os pacientes da base de dados.
+	 * Define funcionalidade de preencher os campos com os dados do paciente selecionado. Caso o paciente selecionado for o item de adicionar um novo,
+	 * limpa todos os campos.
+	 * Define items da combobox sexo com os dados da base de dados.
+	 * Define os items da combobox de seguradoras como os dados da base de dados.
+	 * Define a funcionalidade de adicionar ou remover seguradora ao paciente atravez da combobox.
+	 */
 	@FXML
 	private void initialize() {
 		atualizarLista();
@@ -44,7 +62,7 @@ public class TelaPacientesController {
 			if (pacienteSelecionado == null)
 				return;
 
-			if (pacienteSelecionado.getId() != 010) {
+			if (pacienteSelecionado.getId() != ID_ADD_PACIENTE) {
 				preencherCampos(pacienteSelecionado);
 			} else {
 				limparCampos();
@@ -79,6 +97,9 @@ public class TelaPacientesController {
 		});
 	}
 
+	/**
+	 * limpa todos os campos da tela
+	 */
 	private void limparCampos() {
 		nome.clear();
 		contribuinte.clear();
@@ -91,20 +112,30 @@ public class TelaPacientesController {
 		sexo.setValue(null);
 	}
 
+	/**
+	 * Atualiza informações do paciente selecionado. Caso ainda nao exista, cria um novo paciente com as informações especificadas.
+	 */
 	@FXML
 	private void guardar() {
 		Paciente paciente = pacientes.getSelectionModel().getSelectedItem();
 		atualizarPaciente(paciente);
-		registrarSeguradorasDistintas(paciente);
-		if (paciente.getId() == 010) {
+		
+		if (paciente.getId() == ID_ADD_PACIENTE) {
 			PacientesDAO.criarNovoPaciente(paciente);
-		} else {
+			paciente = PacientesDAO.getPaciente(paciente.getEmail());
+		}else {
 			PacientesDAO.atualizarPaciente(paciente);
 		}
+
+		registrarSeguradorasDistintas(paciente);
 		atualizarLista();
 		limparCampos();
 	}
 
+	/**
+	 * Registra seguradoras da lista na base de dados apenas se não estiver registrada ainda.
+	 * @param paciente paciente para registrar as seguradoras
+	 */
 	private void registrarSeguradorasDistintas(Paciente paciente) {
 		ObservableList<Seguradora> seguradorasDaLista = listaSeguradoras.getItems();
 		ObservableList<Seguradora> seguradorasDoPaciente = SeguradorasDAO.getSeguradoras(paciente.getId());
@@ -144,15 +175,22 @@ public class TelaPacientesController {
 		}
 	}
 
+	/**
+	 * Define items da lista como todos os pacientes da base de dados além do paciente de adição.
+	 */
 	private void atualizarLista() {
 		pacientes.getSelectionModel().selectFirst();
 		pacientes.getItems().clear();
-		Paciente novoPaciente = new Paciente(010, 0, "+ Criar Novo Paciente", null, null, null, null, null, null, 0);
+		Paciente novoPaciente = new Paciente(ID_ADD_PACIENTE, 0, "+ Criar Novo Paciente", null, null, null, null, null, null, 0);
 		pacientes.getItems().add(novoPaciente);
 		pacientes.getItems().addAll(PacientesDAO.getPacientes());
 
 	}
 
+	/**
+	 * Atualiza a informação do paciente especificado no parametro
+	 * @param paciente paciente para atualizar as informações
+	 */
 	private void atualizarPaciente(Paciente paciente) {
 		paciente.setNome(nome.getText());
 		paciente.setContribuinte(Integer.parseInt(contribuinte.getText()));
@@ -166,6 +204,10 @@ public class TelaPacientesController {
 		paciente.setSeguradoras(listaSeguradoras.getItems());
 	}
 
+	/**
+	 * Preenche os campos com a informação do paciente especificado
+	 * @param paciente paciente para buscar as informações
+	 */
 	private void preencherCampos(Paciente paciente) {
 		nome.setText(paciente.toString());
 		contribuinte.setText(String.valueOf(paciente.getContribuinte()));

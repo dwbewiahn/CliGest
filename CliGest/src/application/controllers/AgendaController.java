@@ -16,6 +16,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 
+/**
+ * Controlador da tela que contém a agenda dos medicos e faz a marcação de consultas.
+ * @author dwbew
+ *
+ */
 public class AgendaController {
 	@FXML
 	private Button h800,h830,h900,h930,h1000,h1030,h1100,h1130,
@@ -42,6 +47,10 @@ public class AgendaController {
 		mudarEstadoTodosBotoes(true);
 	}
 
+	/**
+	 * Incia todos botoes como desativados e inicia o action handler de cada um como "escolherpacientes()".
+	 * Define os horarios do medico inicial.
+	 */
 	@FXML
 	private void definirHorarios() {
 		mudarEstadoTodosBotoes(false);
@@ -49,7 +58,15 @@ public class AgendaController {
 			button.setStyle("-fx-background-color: #33bdef");
 			button.setOnAction(e -> escolherPaciente(e));
 		});
-		for(String horario : MedicosDAO.getHorariosMarcados(medicos.getValue().getId())) {
+		defineHorariosDoMedico(medicos.getValue());
+	}
+
+	/**
+	 * Dado um medico, define os botoes da tela conforme seus horarios
+	 * @param medico medico que os horarios serao definidos
+	 */
+	private void defineHorariosDoMedico(Medico medico) {
+		for(String horario : MedicosDAO.getHorariosMarcados(medico.getId())) {
 			for(Button button : horarios) {
 					String dataHora = calendario.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) + "," + button.getText();
 				if(dataHora.equals(horario.toString())) {
@@ -64,11 +81,18 @@ public class AgendaController {
 		}
 	}
 	
+	/**
+	 * Metodo para definir o estado de todos botoes
+	 * @param estado estado desejado
+	 */
 	private void mudarEstadoTodosBotoes(boolean estado) {
 		horarios.forEach(button -> button.setDisable(estado));
 	}
 	
-	
+	/**
+	 * Metodo para abrir o agendamento do botao selecionado
+	 * @param button agendamento que deseja abrir
+	 */
 	private void abrirAgendamento(Button button) {
 		Agendamento agendamento = AgendamentosDAO.getAgendamento(medicos.getValue().getId(),
 				calendario.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) + "," + button.getText());
@@ -79,6 +103,10 @@ public class AgendaController {
 		definirHorarios();
 	}
 	
+	/**
+	 * Abre a tela para escolher o paciente e especialidade do médico e no final realizar o agendamento.
+	 * @param e evento que chamou o metodo
+	 */
 	@FXML
 	private void escolherPaciente(Event e) {
 		Button button = (Button) e.getSource();

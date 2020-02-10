@@ -9,6 +9,11 @@ import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * Classe responsavel por criar janelas na aplicacao.
+ * @author dwbew
+ *
+ */ 
 public class ScreenManager {
 
 	private static Stage primaryStage;
@@ -17,7 +22,14 @@ public class ScreenManager {
 		setPrimaryStage(primaryStage);
 		createNewWindow("views/MenuInicial.fxml", new MenuInicialController());
 	}
-	
+
+
+	/**
+	 * Cria uma janela com os FXML  e Controller passados nos parametros.
+	 * @param fxmlPath FXML que deseja usar na janela.
+	 * @param controller controller que deseja usar.
+	 */
+ 
 	public static void createNewWindow(String fxmlPath, Object controller) {
 		try {
 		Stage stage = new Stage();
@@ -32,6 +44,13 @@ public class ScreenManager {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Cria uma janela modal com os FXML  e Controller passados nos parametros.
+	 * @param fxmlPath FXML que deseja usar na janela.
+	 * @param controller controller que deseja usar.
+	 */
+ 
 	
 	public static void createNewWindowModal(String fxmlPath, Object controller) {
 		try {
@@ -50,6 +69,8 @@ public class ScreenManager {
 		}
 	}
 	
+
+	
 	public static Parent loadFXML(String path, Object controller) {
 		Parent parent = null;
 		try {
@@ -61,7 +82,8 @@ public class ScreenManager {
 		}
 		return parent;
 	}
-	
+
+
 	public static Stage getPrimaryStage() {
 		return primaryStage;
 	}

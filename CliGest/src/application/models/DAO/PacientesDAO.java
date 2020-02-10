@@ -12,8 +12,17 @@ import application.models.Seguradora;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+/**
+ * Classe que lida com a busca e atualizacao dos pacientes da base de dados
+ * @author dwbew
+ *
+ */
 public class PacientesDAO {
 
+	/**
+	 * Busca todos os pacientes registrados na base de dados
+	 * @return lista com todos os pacientes registrados na base de dados
+	 */
 	public static ObservableList<Paciente> getPacientes() {
 		ObservableList<Paciente> pacientes = FXCollections.observableArrayList();
 		Connection conn = DBConnector.getConnection();
@@ -47,6 +56,11 @@ public class PacientesDAO {
 		return pacientes;
 	}
 
+	/**
+	 * Busca o paciente com o id especificado no paramentro
+	 * @param idPaciente id do paciente que deseja buscar na base de dados
+	 * @return Paciente com o id especificado
+	 */
 	public static Paciente getPaciente(int idPaciente) {
 		Connection conn = DBConnector.getConnection();
 		Paciente paciente = null;
@@ -83,6 +97,10 @@ public class PacientesDAO {
 		return paciente;
 	}
 
+	/**
+	 * Cria um novo paciente com as informações passadas nos parametros
+	 * @param paciente Informação do paciente que deseja criar
+	 */
 	public static void criarNovoPaciente(Paciente paciente) {
 			Connection conn = DBConnector.getConnection();
 			String sql = "INSERT INTO paciente(nome, contribuinte, morada, cod_postal, nascimento, sexo, telefone, email)"
@@ -103,7 +121,44 @@ public class PacientesDAO {
 			}
 	}
 	
+	/**
+	 * Busca um paciente na base de dados com o email que está especificado nos parametros
+	 * @param emailPaciente email do paciente que deseja buscar na base de dados
+	 * @return Paciente com o mesmo email passado no parametro
+	 */
+	public static Paciente getPaciente(String emailPaciente) {
+		Paciente paciente = null;
+		System.out.println(emailPaciente);
+		Connection conn = DBConnector.getConnection();
+		String sql = "SELECT * FROM paciente WHERE email = ?";
+		try (PreparedStatement stat = conn.prepareStatement(sql)) {
+			stat.setString(1, emailPaciente);
+			try (ResultSet rs = stat.executeQuery()) {
+				if (rs.next()) {
+					System.out.println("Paciente encontrado");
+					int id = rs.getInt("id_paciente");
+					String nome = rs.getString("nome");
+					String sexo = rs.getString("sexo");
+					int telefone = rs.getInt("telefone");
+					String email = rs.getString("email");
+					String morada = rs.getString("morada");
+					String codigoPostal = rs.getString("cod_postal");
+					String dataNascimento = rs.getString("nascimento");
+					int contribuinte = rs.getInt("contribuinte");
+					paciente = new Paciente(id, telefone, nome, sexo, morada, codigoPostal, email, dataNascimento, FXCollections.observableArrayList(), contribuinte);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return paciente;
+	}
+	
 
+	/**
+	 * Atualiza o paciente com toda a informação passada nos parametros.
+	 * @param paciente paciente com a informação já atualizada para registrar na base de dados.
+	 */
 	public static void atualizarPaciente(Paciente paciente) {
 		Connection conn = DBConnector.getConnection();
 		String sql = "UPDATE paciente SET nome=?, contribuinte=?, morada=?, cod_postal=?,"

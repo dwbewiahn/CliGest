@@ -1,5 +1,11 @@
 package application.models;
 
+/**
+ * Classe do modelo dos agendamentos, contém a data e hora, o paciente registrado para o agendamento, o medico do agendamento, a especialidade
+ * do agendamento e se está confirmado.
+ * @author dwbew
+ *
+ */
 public class Agendamento {
 
 	private int id;

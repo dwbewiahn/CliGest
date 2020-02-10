@@ -11,6 +11,11 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
+/**
+ * Tela com a lista de todos medicos da base de dados e suas informações. Existe a possibilidade de criar novos medicos.
+ * @author dwbew
+ *
+ */
 public class TelaMedicosController {
 
 	@FXML
@@ -31,17 +36,29 @@ public class TelaMedicosController {
 	@FXML
 	private ListView<Especialidade> listaEspecialidades;
 	
+	/**
+	 * ID do item de adição de novo médico
+	 */
 	private final int ID_ADD_MEDICO = 99999;
 
 	public TelaMedicosController() {
 	}
 
+	
+	/**
+	 * Define items da lista como todos os medicos da base de dados.
+	 * Define funcionalidade de preencher os campos com os dados do medico selecionado. Caso o medico selecionado for o item de adicionar um novo,
+	 * limpa todos os campos.
+	 * Define items da combobox sexo com os dados da base de dados.
+	 * Define os items da combobox de especialidades como os dados da base de dados.
+	 * Define a funcionalidade de adicionar ou remover especialidade ao medico atravez da combobox.
+	 */
 	@FXML
 	private void initialize() {
 		atualizarLista();
 		medicos.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, medicoSelecionado) -> {
-			if (medicoSelecionado == null)
-				return;
+			if (medicoSelecionado == null) return;
+			
 			if (medicoSelecionado.getId() != ID_ADD_MEDICO) {
 				preencherCampos(medicoSelecionado);
 			} else {
@@ -51,13 +68,14 @@ public class TelaMedicosController {
 		});
 		sexo.getItems().addAll("Masculino", "Feminino", "Outro");
 		especialidade.getItems().addAll(EspecialidadesDAO.getEspecialidades());
-		especialidade.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
-			if (newVal == null)
-				return;
+		especialidade.getSelectionModel().selectedItemProperty().addListener( (obs, oldVal, newVal) -> {
+			if (newVal == null)	return;
+			
 			if (listaEspecialidades.getItems().isEmpty()) {
 				listaEspecialidades.getItems().add(newVal);
 				return;
 			}
+			
 			boolean duplicado = false;
 			Especialidade especialidadeParaDeletar = null;
 			for (Especialidade especialidade : listaEspecialidades.getItems()) {
@@ -76,6 +94,9 @@ public class TelaMedicosController {
 		});
 	}
 
+	/**
+	 * limpa todos os campos da tela
+	 */
 	private void limparCampos() {
 		nome.clear();
 		especialidade.setValue(null);
@@ -87,32 +108,37 @@ public class TelaMedicosController {
 		listaEspecialidades.getItems().clear();
 	}
 
+	/**
+	 * Atualiza informações do medico selecionado. Caso ainda nao exista, cria um novo medico com as informações especificadas.
+	 */
 	@FXML
 	private void guardar() {
 		Medico medico = medicos.getSelectionModel().getSelectedItem();
 		atualizarMedico(medico);
-		System.out.println("ID VELHO: " + medico.getId());
+		
 		if (medico.getId() == ID_ADD_MEDICO) {
 			MedicosDAO.criarNovoMedico(medico);
 			medico = MedicosDAO.getMedico(medico.getEmail());
 		}else {
 			MedicosDAO.atualizarMedico(medico);
 		}
-		System.out.println("ID NOVO: " + medico.getId());
-		System.out.println("EMAIL: " + medico.getEmail() + " ID: " + medico.getId());
+
 		registrarEspecialidadesDistintas(medico);
 		atualizarLista();
 		limparCampos();
 	}
 
-	
+	/**
+	 * Registra especialidades da lista na base de dados apenas se não estiver registrada ainda.
+	 * @param medico medico para registrar as especialidade
+	 */
 	private void registrarEspecialidadesDistintas(Medico medico) {
 		ObservableList<Especialidade> especialidadesDaLista = listaEspecialidades.getItems();
 		ObservableList<Especialidade> especialidadesDoMedico = EspecialidadesDAO.getEspecialidades(medico.getId());
 		System.out.println(especialidadesDoMedico);
 		if (especialidadesDoMedico.size() < 1) {
+			System.out.println("Medico nao tem especialidade");
 			especialidadesDaLista.forEach(especialidade -> {
-				System.out.println("Medico nao tem especialidade");
 				EspecialidadesDAO.registrarEspecialidade(medico.getId(), especialidade.getId());
 			});
 		} else {
@@ -145,6 +171,9 @@ public class TelaMedicosController {
 		}
 	}
 
+	/**
+	 * Define items da lista como todos os medicos da base de dados além do medico de adição.
+	 */
 	private void atualizarLista() {
 		medicos.getItems().clear();
 		Medico novoMedico = new Medico(ID_ADD_MEDICO, "+ Criar Novo Medico", 0, null, null, null, null, null, null);
@@ -154,6 +183,10 @@ public class TelaMedicosController {
 
 	}
 
+	/**
+	 * Atualiza a informação do medico especificado no parametro
+	 * @param medico medico para atualizar as informações
+	 */
 	private void atualizarMedico(Medico medico) {
 		medico.setNome(nome.getText());
 		medico.setMorada(morada.getText());
@@ -164,6 +197,10 @@ public class TelaMedicosController {
 		medico.setEspecialidadades(listaEspecialidades.getItems());
 	}
 
+	/**
+	 * Preenche os campos com a informação do medico especificado
+	 * @param medico medico para buscar as informações
+	 */
 	private void preencherCampos(Medico medico) {
 		nome.setText(medico.toString());
 		telefone.setText(String.valueOf(medico.getTelefone()));

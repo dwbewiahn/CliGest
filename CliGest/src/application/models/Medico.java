@@ -3,6 +3,13 @@ package application.models;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+/**
+ * Classe do modelo dos medicos que herda dados da classe pessoa, contém os dados do medico como : nome, telefone, sexo, morada, codigo postal,
+ * email, data de nascimento, especialidades e os horarios marcados.
+ * @author dwbew
+ *
+ */
+
 public class Medico extends Pessoa{
 
 	private ObservableList<Especialidade> especialidades;

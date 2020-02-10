@@ -1,5 +1,11 @@
 package application.models;
 
+/**
+ * Classe do modelo das especialidades, contém id da seguradora e o nome.
+ * @author dwbew
+ *
+ */
+
 public class Seguradora {
 
 	private int id;
